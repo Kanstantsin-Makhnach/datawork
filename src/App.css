@@ -1,10 +1,11 @@
 .App {
-  text-align: center;
+  margin-left: 20px;
+  color: black;
 }
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:100);
 
-body { margin-top: 100px; background-color: #137b85; color: #fff; text-align:center; }
+body { margin-top: 100px; background-color: #50bdc7; color: #fff; text-align:center; }
 
 h1 {
   font: 2em 'Roboto', sans-serif;
@@ -28,3 +29,4 @@ h1 {
 @-webkit-keyframes spin {
   to { -webkit-transform: rotate(360deg); }
 }
+
