@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import Repository from './Repository';
-import RepSearch from './RepSearch';
+import Search from './Search';
+
+
 
 function App() {
   
@@ -9,6 +11,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
+  const [searchInput, setSearchInput] = useState('');
 
   const url = 'https://api.github.com/search/repositories?q=w';
 
@@ -41,13 +44,28 @@ function App() {
   // const users = items.map(item => users.item = item.owner);
   // console.log();
   
+  
+
+  const handleInputChange = (e) => {
+      setSearchInput(e.target.value)
+  };
+
+  const searchReps = items.filter((item) => {
+    return item.name.toLowerCase().includes(searchInput.trim().toLowerCase());
+  });
+
+  
   if(isLoading) return <div id="loading"></div>
   return (
     <div className="App">
-      <RepSearch />
+      <Search 
+        handleInputChange={handleInputChange}
+        searchInput={searchInput}
+      />
       <div>Найдено {formatNumber()} репозиториев</div>
       <div className='d-flex align-content-center flex-wrap'>
         <Repository
+          searchReps={searchReps}
           errorMessage={errorMessage}
           items={items}
         />      

@@ -2,10 +2,8 @@ import React from 'react';
 import './Repository.css';
 
 
-function Repository({items, errorMessage}) {
-    
-    
-    
+function Repository({items, errorMessage, searchReps}) {
+        
 
     function renderReps() {
         console.log(items)
@@ -15,7 +13,7 @@ function Repository({items, errorMessage}) {
         if (!items.length){
           return <div>У нас нет данных для отображения</div>
         }
-        const rep = items.map((item) => {
+        const rep = searchReps.map((item) => {
           return (
             <div key={item.id} className='userBox card'>
               <a href={item.owner.html_url}><img src={item.owner.avatar_url} className='userImg card-img-top' alt='тут должна  быть картинка'></img></a>
