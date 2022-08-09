@@ -13,7 +13,7 @@ function Repository({items, errorMessage, searchReps}) {
         if (!items.length){
           return <div>У нас нет данных для отображения</div>
         }
-        const rep = searchReps.map((item) => {
+        const rep = items.map((item) => {
           return (
             <div key={item.id} className='userBox card'>
               <a href={item.owner.html_url}><img src={item.owner.avatar_url} className='userImg card-img-top' alt='тут должна  быть картинка'></img></a>
