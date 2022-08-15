@@ -4,9 +4,7 @@ import Repository from './Repository';
 import Search from './Search';
 import InfiniteScroll from  'react-infinite-scroller';
 
-
 const API_URL_REPOSITORY = 'https://api.github.com/search/repositories';
-
 
 function App() {
   
@@ -15,17 +13,17 @@ function App() {
   const [totalCount, setTotalCount] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
   const [currentPage,setCurrentPage] = useState(1);
-  const [url, setUrl] = useState(`${API_URL_REPOSITORY}?q=a&per_page=32&page=`);
+  const [query, setQuery] = useState(`test`);
 
   async function request() {
     try {
-      let requestResult = await fetch(url+currentPage);
+      let requestResult = await fetch(`${API_URL_REPOSITORY}?q=${query}&per_page=32&page=${currentPage}`);
       if(!requestResult.ok) {
         throw new Error('Ошибка запроса')
       }
       let result = await requestResult.json();
       setCurrentPage(currentPage + 1);
-      setTotalCount(result.total_count)
+      setTotalCount(result.total_count);
       setItems([...items, ...result.items]);
       setIsLoading(false);
     } catch (error) {
@@ -34,10 +32,9 @@ function App() {
     }
   }
 
-  useEffect( () => {
-    request();
-    
-  }, []);
+  useEffect(() =>{
+    request()
+  }, [query])
  
   function formatNumber() {
     return (Math.round(totalCount * 100) / 100).toLocaleString()
@@ -48,8 +45,9 @@ function App() {
   const hasMoreItems = !!currentPage;
 
   const searchReps = (e) => {
-    setUrl(`${API_URL_REPOSITORY}?q=${e.target.value}&per_page=32&page=`);
-    console.log(url)
+    setItems([]);
+    setCurrentPage(1);
+    setQuery(e.target.value);
   }
   
   return (
